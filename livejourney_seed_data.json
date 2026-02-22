@@ -1,0 +1,1439 @@
+{
+  "meta": {
+    "version": "1.0",
+    "journey_title": "From Normal to Beast — 60-Day Comeback Roadmap",
+    "total_days": 60,
+    "total_weeks": 8,
+    "created_for": "Piyush Kumar",
+    "description": "Complete seed data for LiveJourney app. Each day has tasks, knowledge checks, and XP values. Supports flexible_completion: can be marked complete 1 day early (pre-complete) or 1 day late (post-complete)."
+  },
+  "xp_system": {
+    "task_xp": { "easy": 10, "medium": 25, "hard": 50, "boss": 100 },
+    "day_completion_bonus": 100,
+    "blog_publish_bonus": 50,
+    "knowledge_check_bonus": 15,
+    "perfect_week_bonus": 500,
+    "streak_multiplier_formula": "min(1.0 + (streak * 0.1), 2.0)",
+    "pre_complete_xp_modifier": 1.0,
+    "post_complete_xp_modifier": 0.75,
+    "note": "post-completing a day (completing it late) gives 75% of normal XP as a penalty"
+  },
+  "flexible_completion_rules": {
+    "pre_complete": {
+      "allowed": true,
+      "days_ahead_limit": 1,
+      "description": "Mark tomorrow's day as complete today. Full XP awarded. Day status shows PRE-COMPLETED.",
+      "unlock_condition": "Today's day must be at least 50% complete (half tasks done)"
+    },
+    "post_complete": {
+      "allowed": true,
+      "days_behind_limit": 1,
+      "description": "Mark yesterday's missed day as complete today. 75% XP penalty. Streak is NOT restored.",
+      "unlock_condition": "The missed day must be exactly 1 day in the past",
+      "streak_restored": false,
+      "xp_penalty_percent": 25
+    }
+  },
+  "level_names": {
+    "1": "ROOKIE",
+    "2": "LEARNER",
+    "3": "BUILDER",
+    "4": "HACKER",
+    "5": "ENGINEER",
+    "6": "CRAFTSMAN",
+    "7": "SPECIALIST",
+    "8": "ARCHITECT",
+    "9": "PRINCIPAL",
+    "10": "LEGEND"
+  },
+  "weeks": [
+    {
+      "week_number": 1,
+      "title": "TypeScript Mastery + Node.js Internals",
+      "theme": "Deep dive into the runtime — stop being a tourist in your own stack",
+      "color_accent": "#00FF88",
+      "xp_target": 1400,
+      "days": [
+        {
+          "day_number": 1,
+          "title": "TypeScript Advanced Types — Generics, Conditional, Mapped",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["TypeScript", "Generics", "Conditional Types", "Mapped Types"],
+          "tasks": [
+            { "order": 1, "title": "Study and implement Generics with constraints (extends) and default type params", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Master Conditional Types — write UnpackPromise<T> using infer keyword from scratch", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Build all Mapped Types from scratch: Readonly, Partial, Required, Record, Pick, Omit", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Implement Template Literal Types — type-safe event name system", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Implement Discriminated Unions with exhaustive checking using never", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Understand Variance: Covariance vs Contravariance in function types", "difficulty": "hard", "xp_value": 50 },
+            { "order": 7, "title": "Implement Branded/Nominal Types — UserId vs PostId pattern", "difficulty": "medium", "xp_value": 25 },
+            { "order": 8, "title": "Master all built-in Utility Types: Parameters<T>, ReturnType<T>, ConstructorParameters<T>, InstanceType<T>", "difficulty": "medium", "xp_value": 25 },
+            { "order": 9, "title": "Build DeepReadonly<T> recursive utility type", "difficulty": "boss", "xp_value": 100 },
+            { "order": 10, "title": "Build type-safe EventEmitter class with no 'any' using conditional types + generics", "difficulty": "boss", "xp_value": 100 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Write a type-safe EventEmitter class using conditional types and generics — no 'any' allowed." },
+            { "order": 2, "question": "What is the difference between `type` and `interface`? When does it matter? Give a real scenario where you'd choose one." },
+            { "order": 3, "question": "Write a DeepReadonly<T> utility type that recursively makes all nested properties readonly." },
+            { "order": 4, "question": "What does `infer` do in conditional types? Write a UnpackPromise<T> type from scratch." },
+            { "order": 5, "question": "Explain covariance and contravariance with a function parameter example. Why does TypeScript use bivariant method checking?" },
+            { "order": 6, "question": "What is a discriminated union and how does exhaustive checking with `never` work? Implement a shape area calculator." },
+            { "order": 7, "question": "Write a type that converts `{ a: string, b: number }` to `{ a: 'string', b: 'number' }` (type to string literal)." },
+            { "order": 8, "question": "What is declaration merging? Show how to add a method to Express Request type." },
+            { "order": 9, "question": "Implement a type-safe Builder pattern using TypeScript generics and method chaining." },
+            { "order": 10, "question": "What is a branded/nominal type? Why would you use `type UserId = string & { _brand: 'UserId' }`?" }
+          ]
+        },
+        {
+          "day_number": 2,
+          "title": "TypeScript in Node.js — tsconfig Mastery + Declaration Files",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["TypeScript", "tsconfig", "Declaration Files", "Module Resolution"],
+          "tasks": [
+            { "order": 1, "title": "Master tsconfig: target, module, moduleResolution — understand why 'bundler' changed everything in TS 5.0", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Enable and understand every strict mode flag: strictNullChecks, noUncheckedIndexedAccess, exactOptionalPropertyTypes", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Set up path aliases and baseUrl — implement a monorepo tsconfig structure", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Write a custom .d.ts declaration file for an untyped JS library", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Set up TypeScript Project References for monorepo performance", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Implement Module Augmentation — extend a third-party type without forking", "difficulty": "medium", "xp_value": 25 },
+            { "order": 7, "title": "Study and implement Type Predicates with the `is` keyword for runtime narrowing", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the difference between `moduleResolution: node` vs `moduleResolution: bundler` in TypeScript 5?" },
+            { "order": 2, "question": "What does `noUncheckedIndexedAccess` do? Write code that breaks without it and is safe with it." },
+            { "order": 3, "question": "How do you extend the Express `Request` type to add a `user` property? Show the declaration merging approach." },
+            { "order": 4, "question": "What is a type predicate? Write a function `isString(val: unknown): val is string` and explain when to use it." },
+            { "order": 5, "question": "What is `exactOptionalPropertyTypes` and how is it different from just having optional properties?" }
+          ]
+        },
+        {
+          "day_number": 3,
+          "title": "Node.js V8 Engine Internals — Hidden Classes, Inline Caching, GC",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Node.js", "V8", "Garbage Collection", "Memory", "Performance"],
+          "tasks": [
+            { "order": 1, "title": "Study V8 compilation pipeline: Ignition → Sparkplug → Maglev → Turbofan (JIT optimization tiers)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Understand Hidden Classes — write code demonstrating how property order affects V8 optimization", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Inline Caching: write monomorphic vs polymorphic vs megamorphic examples — benchmark the difference", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Study Generational GC: Minor (Scavenge) vs Major (Mark-Sweep-Compact) collection", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Identify and reproduce 3 common Node.js memory leak patterns — global variables, closures, event listeners", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Understand deoptimization: why try-catch inside hot functions kills JIT performance", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Explain the V8 compilation pipeline. What is the difference between Ignition, Sparkplug, and Turbofan?" },
+            { "order": 2, "question": "What is a Hidden Class in V8? Write two versions of the same object creation — one that creates multiple hidden classes and one that doesn't." },
+            { "order": 3, "question": "What is Inline Caching? Explain monomorphic vs polymorphic vs megamorphic IC states with performance implications." },
+            { "order": 4, "question": "How does V8 generational garbage collection work? What is the 'new space' and why is it collected frequently?" },
+            { "order": 5, "question": "Your Node.js app has a memory leak. Describe 3 common causes and how you'd use node --inspect + Chrome DevTools to find each." }
+          ]
+        },
+        {
+          "day_number": 4,
+          "title": "Node.js Event Loop Deep Dive — libuv, Phases, Microtasks",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Node.js", "Event Loop", "libuv", "Async", "Microtasks"],
+          "tasks": [
+            { "order": 1, "title": "Map all 6 Event Loop phases: timers → pending callbacks → idle/prepare → poll → check → close with examples", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Understand libuv thread pool: what uses it, default size 4, how to set UV_THREADPOOL_SIZE", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Fully understand execution order: process.nextTick vs queueMicrotask vs setImmediate vs setTimeout(fn,0)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Implement AsyncLocalStorage for request context propagation — replace a global variable approach", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Compare Worker Threads vs Child Processes vs Cluster module — implement a CPU task in each", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Write a script that blocks the event loop, detect it with --trace-warnings, then fix it", "difficulty": "medium", "xp_value": 25 },
+            { "order": 7, "title": "Study and implement the async_hooks API basics for tracking async context", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Draw the 6 phases of the Node.js event loop with examples of what callbacks land in each phase." },
+            { "order": 2, "question": "What is the execution order of: setTimeout(fn,0), setImmediate(fn), Promise.resolve().then(fn), process.nextTick(fn)? Why?" },
+            { "order": 3, "question": "What is the libuv thread pool? What operations use it? What happens when all 4 threads are busy?" },
+            { "order": 4, "question": "What is AsyncLocalStorage and how does it solve the 'request context' problem without passing context everywhere? Show code." },
+            { "order": 5, "question": "When is setImmediate NOT guaranteed to fire before setTimeout(fn,0)? What is the one case where they behave differently?" },
+            { "order": 6, "question": "You have a CPU-bound task in a Node.js API. What are your 3 options? Compare Worker Threads vs Child Process vs job queue." },
+            { "order": 7, "question": "What is process.nextTick? Why is it dangerous to use recursively? What does the official Node.js docs warn about?" }
+          ]
+        },
+        {
+          "day_number": 5,
+          "title": "Node.js HTTP Internals, Streams, and Production Patterns",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Node.js", "HTTP", "Streams", "Backpressure", "Graceful Shutdown"],
+          "tasks": [
+            { "order": 1, "title": "Study HTTP/1.1 vs HTTP/2 vs HTTP/3: multiplexing, header compression (HPACK), QUIC", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Configure Node.js http.Agent: maxSockets, keepAlive — benchmark difference vs no keep-alive", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Master Node.js Streams: implement a Transform stream that does real work (CSV parsing, compression)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Understand and implement backpressure in streams — why it exists, how to handle it with pipeline()", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Implement graceful shutdown: SIGTERM handler, drain connections, health check response", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Understand Buffer pooling vs Buffer.allocUnsafe() security implications", "difficulty": "easy", "xp_value": 10 },
+            { "order": 7, "title": "Set up clinic.js and profile a Node.js Express app to find bottlenecks using flame graphs", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is multiplexing in HTTP/2? How does it solve the head-of-line blocking problem from HTTP/1.1?" },
+            { "order": 2, "question": "What is backpressure in Node.js streams? Write code demonstrating a backpressure problem and fix it with pipeline()." },
+            { "order": 3, "question": "What is the difference between pipe() and pipeline()? Why should you always prefer pipeline()?" },
+            { "order": 4, "question": "How do you implement graceful shutdown in a Node.js HTTP server? What happens to in-flight requests?" },
+            { "order": 5, "question": "What is Buffer.allocUnsafe() and why is it dangerous? When would you use it anyway?" }
+          ]
+        },
+        {
+          "day_number": 6,
+          "title": "TypeScript + Node.js Combined Project — Build a Type-Safe Streaming Utility Library",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["TypeScript", "Node.js", "Streams", "Project"],
+          "tasks": [
+            { "order": 1, "title": "Design TypeScript interfaces for a streaming data pipeline library", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Implement StreamProcessor<T, R> generic class with proper TypeScript types", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Add proper error types using discriminated unions (not just Error subclasses)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Write unit tests with Jest + ts-jest for every function in the library", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Set up tsconfig with strict mode, project references, and path aliases", "difficulty": "easy", "xp_value": 10 },
+            { "order": 6, "title": "Publish to local npm registry (verdaccio) or write a proper README with usage examples", "difficulty": "easy", "xp_value": 10 },
+            { "order": 7, "title": "Benchmark the library vs naive implementation — document results", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "In your library, how did you handle error types? Why are discriminated unions better than instanceof checks?" },
+            { "order": 2, "question": "What TypeScript patterns did you use to make the library type-safe? What was the hardest type to express?" },
+            { "order": 3, "question": "How did you write tests for async streaming code? What edge cases did you cover?" }
+          ]
+        },
+        {
+          "day_number": 7,
+          "title": "Week 1 Review + LeetCode Intensive + Blog Post",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["LeetCode", "Review", "Writing"],
+          "tasks": [
+            { "order": 1, "title": "LeetCode: 3 Easy problems — Two Sum, Valid Palindrome, Best Time to Buy and Sell Stock", "difficulty": "easy", "xp_value": 10 },
+            { "order": 2, "title": "LeetCode: 3 Medium problems — Two Pointer pattern — 3Sum, Container With Most Water, Trapping Rain Water", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "LeetCode: 1 Hard — Sliding Window Maximum (Deque)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Answer all 10 knowledge check questions from Week 1 Day 1 in writing — no looking up answers", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Write Week 1 blog post: 'What I actually learned about the Node.js event loop this week'", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Weekly review: What confused you? What clicked? Document gaps to revisit.", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Without looking anything up: explain the Node.js event loop phases in order. Where does setTimeout go? Where does Promise.then go?" },
+            { "order": 2, "question": "What are the 3 TypeScript features you struggled with most this week? Write a one-paragraph explanation of each." },
+            { "order": 3, "question": "LeetCode reflection: what pattern did you notice across all two-pointer problems you solved?" }
+          ]
+        }
+      ]
+    },
+    {
+      "week_number": 2,
+      "title": "React Internals + Next.js App Router Mastery",
+      "theme": "From 'I use Next.js' to 'I architect Next.js'",
+      "color_accent": "#3B82F6",
+      "xp_target": 1600,
+      "days": [
+        {
+          "day_number": 8,
+          "title": "React Fiber Architecture — Reconciliation, Commit Phase, Scheduling",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["React", "Fiber", "Reconciliation", "Concurrency"],
+          "tasks": [
+            { "order": 1, "title": "Study React Fiber: why it was rewritten from stack reconciler — understand the scheduling problem it solves", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Understand Fiber node structure: type, key, stateNode, return, child, sibling, effectTag fields", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Trace the work loop: beginWork phase vs completeWork phase — what happens in each", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Understand the 3 commit sub-phases: mutation, layout (useLayoutEffect), passive (useEffect) — their timing", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Study React 18 priority scheduling with Lanes — how useTransition uses it", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Implement a demo showing useTransition vs no useTransition on a slow render (filter 10,000 items list)", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Explain React Fiber. What was wrong with the old stack reconciler and what problem does Fiber solve with time-slicing?" },
+            { "order": 2, "question": "What is the React reconciliation algorithm? How does React decide what to re-render vs skip?" },
+            { "order": 3, "question": "Explain the three phases of a React render: render, commit (mutation/layout/passive). When does useEffect run relative to paint?" },
+            { "order": 4, "question": "What is the difference between useTransition and useDeferredValue? Give a concrete UI scenario for each." },
+            { "order": 5, "question": "Why is key=index dangerous in lists? Give a specific bug scenario with controlled form inputs inside a dynamic list." },
+            { "order": 6, "question": "How does React 18 automatic batching work? What behavior changed from React 17 inside setTimeout?" },
+            { "order": 7, "question": "What is Suspense? How does a component 'throw a promise' to suspend? Implement a basic data-fetching Suspense wrapper." }
+          ]
+        },
+        {
+          "day_number": 9,
+          "title": "React Performance — useMemo, useCallback, React.memo, Context Optimization",
+          "difficulty": "medium",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["React", "Performance", "Memoization", "Context", "Profiler"],
+          "tasks": [
+            { "order": 1, "title": "Set up React DevTools Profiler — record a render, read the flame chart, identify unnecessary re-renders", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Identify 3 scenarios where useMemo HURTS performance (overhead > benefit) — write the bad vs good code", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement Context optimization: split a single context into 3 — show render count reduction", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Demonstrate React.memo failing due to children prop — fix it with useMemo", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Use the Profiler API programmatically to log slow renders in development mode", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Implement windowing/virtualization for a 10,000-row list using react-virtual or react-window", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "You have a context with 10 consumers. The context value changes every second. What happens to all consumers? How do you fix unnecessary re-renders?" },
+            { "order": 2, "question": "When does useMemo hurt performance? Describe a scenario where removing useMemo makes your code faster." },
+            { "order": 3, "question": "How does React.memo work? Write a component where React.memo fails to prevent re-renders and explain exactly why." },
+            { "order": 4, "question": "What is the difference between useLayoutEffect and useEffect timing? Give a real use case for useLayoutEffect." },
+            { "order": 5, "question": "How would you implement a virtualized list that renders 50,000 rows without lagging? Explain the core algorithm." }
+          ]
+        },
+        {
+          "day_number": 10,
+          "title": "Next.js App Router — RSC, Server Actions, Caching Architecture",
+          "difficulty": "boss",
+          "xp_reward": 275,
+          "hours_target": 10,
+          "topics": ["Next.js", "RSC", "Server Components", "Caching", "Server Actions"],
+          "tasks": [
+            { "order": 1, "title": "Master RSC: what they can do, what they cannot (no state, no effects, no browser APIs) — build 5 examples", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Understand the serialization boundary — what types can cross server→client, what cannot", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Master all 4 Next.js caching layers: Request Memoization → Data Cache → Full Route Cache → Router Cache", "difficulty": "boss", "xp_value": 100 },
+            { "order": 4, "title": "Implement cache(), unstable_cache(), revalidateTag, revalidatePath with working examples", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Build Server Actions: form submission, mutation, security considerations (CSRF, binding)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Implement streaming with Suspense: loading.tsx boundaries, nested Suspense for progressive loading", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is a React Server Component? What can it do that Client Components cannot, and vice versa?" },
+            { "order": 2, "question": "Explain the 4 caching layers in Next.js App Router. How do they interact? What opts out of each layer?" },
+            { "order": 3, "question": "What is Partial Prerendering (PPR)? How does it differ from ISR? What problem does it solve architecturally?" },
+            { "order": 4, "question": "A Server Component fetches data with fetch(). How does Next.js cache this response? How do you opt out?" },
+            { "order": 5, "question": "What are Server Actions? How does Next.js handle CSRF protection for them? What security risks remain?" },
+            { "order": 6, "question": "Explain streaming SSR with Suspense. How does it improve Time to First Byte vs traditional SSR?" },
+            { "order": 7, "question": "You need personalized content on a mostly-static page. How do you architect this with Next.js to maximize performance?" },
+            { "order": 8, "question": "What is the difference between revalidatePath and revalidateTag? Give a scenario where you'd use each." }
+          ]
+        },
+        {
+          "day_number": 11,
+          "title": "Next.js Performance — Images, Fonts, Bundle, Core Web Vitals",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Next.js", "Performance", "Core Web Vitals", "Bundle Optimization"],
+          "tasks": [
+            { "order": 1, "title": "Run @next/bundle-analyzer on a Next.js app — identify the top 3 heaviest dependencies and eliminate/lazy-load them", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Master next/image: understand WebP/AVIF conversion, sizes prop, blur placeholder implementation", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Implement next/font — understand why it eliminates FOUT/FOIT at the compile level", "difficulty": "easy", "xp_value": 10 },
+            { "order": 4, "title": "Build Edge Middleware: A/B testing pattern using middleware.ts + cookies", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Achieve LCP < 2.5s, CLS < 0.1 on a test Next.js page — document every optimization made", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Understand INP (Interaction to Next Paint) — what causes poor INP in React apps and how to fix it", "difficulty": "medium", "xp_value": 25 },
+            { "order": 7, "title": "Set up Lighthouse CI in a GitHub Action — fail the build if LCP > 3s", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is LCP (Largest Contentful Paint)? What are the top 3 things in a Next.js app that cause poor LCP?" },
+            { "order": 2, "question": "How does next/font eliminate layout shift? What happens at build time vs runtime?" },
+            { "order": 3, "question": "A Next.js page has LCP of 4.2s. Walk through your debugging and optimization process systematically." },
+            { "order": 4, "question": "What is CLS (Cumulative Layout Shift) and what are the 3 most common causes in web apps?" },
+            { "order": 5, "question": "What is INP and why did Google replace FID with it? How do React rendering patterns affect INP?" }
+          ]
+        },
+        {
+          "day_number": 12,
+          "title": "Advanced React Patterns — Compound Components, State Management Architecture",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["React", "Patterns", "Zustand", "TanStack Query", "Compound Components"],
+          "tasks": [
+            { "order": 1, "title": "Build a Compound Component (like Radix UI) — implement Select, Select.Trigger, Select.Option with Context", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Build a type-safe Higher Order Component in TypeScript — understand the forwardRef + displayName pattern", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Master useImperativeHandle with forwardRef — build an imperative form control API", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Implement Zustand store with slices, devtools middleware, immer middleware, and persist middleware", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Implement TanStack Query: stale-while-revalidate, optimistic updates, mutation rollback", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Implement URL state management with nuqs — replace useState for filterable table", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the Compound Component pattern? How does it use Context + render delegation? Build a Tabs component." },
+            { "order": 2, "question": "When would you choose Zustand over Redux Toolkit? What does Zustand NOT give you that Redux does?" },
+            { "order": 3, "question": "How does TanStack Query's stale-while-revalidate work? What is the difference between staleTime and gcTime?" },
+            { "order": 4, "question": "What is useImperativeHandle? Write a video player component where the parent can call .play() and .pause() imperatively." },
+            { "order": 5, "question": "What is optimistic UI? How does TanStack Query's optimistic update work with rollback on error?" }
+          ]
+        },
+        {
+          "day_number": 13,
+          "title": "Next.js 15 Mini Project — Full App Router Demo with RSC, SA, ISR, Middleware",
+          "difficulty": "boss",
+          "xp_reward": 275,
+          "hours_target": 10,
+          "topics": ["Next.js", "React", "Project", "Full Stack"],
+          "tasks": [
+            { "order": 1, "title": "Build a mini blog with: RSC for post list, Server Actions for comments, ISR with revalidateTag for posts", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Implement Edge Middleware for auth protection + geolocation-based redirect", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Add Suspense streaming for the comments section — show skeleton while loading", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Achieve 95+ Lighthouse performance score — document every decision that got you there", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Write an architectural README explaining every caching decision made in the project", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Deploy to Vercel — verify ISR works, check Edge Function logs", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "For your mini blog: explain why you chose RSC for the post list vs making it a Client Component." },
+            { "order": 2, "question": "How did you handle cache invalidation when a new comment was added? Walk through the full flow." },
+            { "order": 3, "question": "What was your biggest architectural mistake in the project and how did you catch/fix it?" }
+          ]
+        },
+        {
+          "day_number": 14,
+          "title": "Week 2 Review + LeetCode + Document Week 2 Learnings",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["LeetCode", "Review", "Writing"],
+          "tasks": [
+            { "order": 1, "title": "LeetCode: Sliding Window pattern — Longest Substring Without Repeating Characters, Minimum Window Substring", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "LeetCode: Binary Search — Search in Rotated Sorted Array, Find Minimum in Rotated Sorted Array", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Write Week 2 blog post: 'The Next.js caching system is brilliant and confusing — here's how I finally understood it'", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Complete all knowledge checks for Day 10 (RSC/Caching) without referencing notes", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Review your Next.js mini project: what would you do differently knowing what you know now?", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Explain the 4 Next.js caching layers without looking at notes. What invalidates each one?" },
+            { "order": 2, "question": "What React pattern did you find hardest this week? Can you implement it from memory now?" },
+            { "order": 3, "question": "Binary Search reflection: what is the invariant you maintain in every binary search problem?" }
+          ]
+        }
+      ]
+    },
+    {
+      "week_number": 3,
+      "title": "PostgreSQL Mastery + Redis Deep Dive + Database Architecture",
+      "theme": "Data layer depth — from 'I know SQL' to 'I tune databases'",
+      "color_accent": "#8B5CF6",
+      "xp_target": 1700,
+      "days": [
+        {
+          "day_number": 15,
+          "title": "PostgreSQL Query Optimization — EXPLAIN ANALYZE, Indexes, Window Functions",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["PostgreSQL", "Query Optimization", "Indexes", "Window Functions"],
+          "tasks": [
+            { "order": 1, "title": "Master EXPLAIN ANALYZE: read SeqScan vs IndexScan vs HashJoin vs NestedLoop nodes — run on 5 real queries", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Understand all index types: B-Tree, Hash, GIN, GiST, BRIN — create examples of when each one wins", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement Partial Indexes (WHERE clause) — index only active users, published posts", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Implement Covering Indexes with INCLUDE clause — achieve index-only scans on 3 slow queries", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Write 5 Window Function queries: ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD with real use cases", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Write a recursive CTE for hierarchical data — org chart or category tree with N depth levels", "difficulty": "hard", "xp_value": 50 },
+            { "order": 7, "title": "Implement LATERAL joins — top-3 products per category without window functions", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "You see a SeqScan on a 5M row users table in EXPLAIN ANALYZE. Walk through your investigation and fix." },
+            { "order": 2, "question": "What is the difference between a regular index and a covering index (INCLUDE clause)? When does it help?" },
+            { "order": 3, "question": "Write a SQL query to find the top 3 highest-paid employees per department using window functions." },
+            { "order": 4, "question": "What is a partial index? When would you create one? Give a production example." },
+            { "order": 5, "question": "Write a recursive CTE to get all ancestors of a given node in a category tree." },
+            { "order": 6, "question": "What is the N+1 query problem? How does pg_stat_statements help you find it in production?" },
+            { "order": 7, "question": "When would you choose GIN vs B-Tree index? Give a concrete example for each." }
+          ]
+        },
+        {
+          "day_number": 16,
+          "title": "PostgreSQL Internals — MVCC, WAL, Connection Pooling, Schema Design",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["PostgreSQL", "MVCC", "WAL", "Connection Pooling", "Schema Design"],
+          "tasks": [
+            { "order": 1, "title": "Understand MVCC: how PostgreSQL handles concurrent reads/writes without blocking — visualize with concurrent sessions", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Study WAL (Write Ahead Log): crash recovery, replication, PITR — what happens during a crash", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Set up PgBouncer: understand session vs transaction vs statement mode — what breaks in transaction mode", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Study table bloat: dead tuples, visibility map, autovacuum — tune autovacuum settings", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Implement multi-tenant schema design: Row-Level Security (RLS) vs schema-per-tenant — pros/cons", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Implement UUID v7 (time-ordered) vs v4 (random) — benchmark index performance difference", "difficulty": "medium", "xp_value": 25 },
+            { "order": 7, "title": "Implement soft deletes correctly: partial unique index to handle deleted=true + unique constraint", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is MVCC in PostgreSQL? How does it allow concurrent reads and writes without locking?" },
+            { "order": 2, "question": "What is connection pool exhaustion? How do you configure pg pool + PgBouncer to prevent it?" },
+            { "order": 3, "question": "Design a multi-tenant SaaS schema. What are the tradeoffs of schema-per-tenant vs row-level-security?" },
+            { "order": 4, "question": "What is table bloat? Why does it happen after many UPDATEs/DELETEs? How does VACUUM help?" },
+            { "order": 5, "question": "What is the WAL in PostgreSQL? Why must writes go to WAL before the actual data pages?" },
+            { "order": 6, "question": "What is the difference between UUID v4 and UUID v7? Why does v7 have better B-tree index performance?" },
+            { "order": 7, "question": "You need soft deletes + unique email constraint. How do you implement this with partial indexes?" }
+          ]
+        },
+        {
+          "day_number": 17,
+          "title": "Redis Data Structures + Caching Patterns",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Redis", "Caching", "Data Structures", "Pub/Sub"],
+          "tasks": [
+            { "order": 1, "title": "Implement all 6 Redis data types with real use cases: Strings, Lists, Sets, Sorted Sets, Hashes, Streams", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Implement Cache-Aside, Write-Through, Write-Behind patterns — write the code for each", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement Cache Stampede protection using probabilistic early expiration (PER algorithm)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 4, "title": "Implement a leaderboard using Redis Sorted Sets with ZRANGEBYSCORE and cursor-based pagination", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Implement Redis Streams with consumer groups for a simple task queue", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Configure eviction policies: understand LRU vs LFU vs allkeys-lru and choose for 3 different scenarios", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is cache stampede? How does probabilistic early expiration (PER) solve it? Implement it in pseudocode." },
+            { "order": 2, "question": "What is the hot key problem in Redis? How does it manifest and what are the solutions?" },
+            { "order": 3, "question": "Compare Redis Pub/Sub vs Streams. What guarantees does Pub/Sub NOT give you that Streams does?" },
+            { "order": 4, "question": "Implement a session store with Redis: sliding expiry and max-3-devices-per-user limit." },
+            { "order": 5, "question": "What is the difference between LRU and LFU eviction? When would you choose LFU over LRU?" },
+            { "order": 6, "question": "What are the trade-offs between Cache-Aside, Write-Through, and Write-Behind? When does each fail?" }
+          ]
+        },
+        {
+          "day_number": 18,
+          "title": "Redis Advanced — Lua Scripts, Redlock, Rate Limiting, Sentinel vs Cluster",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Redis", "Lua", "Distributed Locks", "Rate Limiting", "HA"],
+          "tasks": [
+            { "order": 1, "title": "Implement a Lua script for atomic multi-command rate limiter (sliding window using sorted sets)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Implement Redlock distributed lock algorithm — understand why single SETNX is wrong", "difficulty": "boss", "xp_value": 100 },
+            { "order": 3, "title": "Implement Token Bucket rate limiter in Redis — compare to sliding window", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Configure Redis Sentinel for HA — understand automatic failover process", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Understand Redis Cluster: hash slots, MOVED redirects, multi-key operations limitations", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Compare RDB vs AOF persistence — configure both and simulate a crash to verify recovery", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Implement a Redis rate limiter using Lua script and sorted sets. Why must it be in Lua (atomicity)?" },
+            { "order": 2, "question": "What is the Redlock algorithm? Why is a single Redis instance SETNX lock insufficient in distributed systems?" },
+            { "order": 3, "question": "What is the difference between Redis Sentinel and Redis Cluster? When would you use each?" },
+            { "order": 4, "question": "Your Redis memory is at 90%. Walk through your investigation and mitigation strategy." },
+            { "order": 5, "question": "What is the difference between RDB and AOF persistence? Which offers better durability? Which offers better performance?" },
+            { "order": 6, "question": "What operations are NOT supported in Redis Cluster mode (multi-key ops)? How do you work around them?" }
+          ]
+        },
+        {
+          "day_number": 19,
+          "title": "MongoDB Advanced — Aggregation Pipeline, Transactions, Index Strategy",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["MongoDB", "Aggregation", "Transactions", "Indexes"],
+          "tasks": [
+            { "order": 1, "title": "Build a complex aggregation pipeline: $match → $unwind → $group → $lookup → $project → $facet", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Implement $facet for a faceted search result (e-commerce filters: price ranges, categories, ratings)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Use explain() on aggregation pipelines — find slow stages and fix with indexes", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Implement multi-document ACID transactions — when to use, performance cost demonstration", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Create all MongoDB index types: single, compound, multikey, text, 2dsphere — query each", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Design schema for a blog: compare 3 approaches (embedded, referenced, hybrid) with query patterns", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the $facet stage in MongoDB aggregation? Build a query returning price ranges AND category counts simultaneously." },
+            { "order": 2, "question": "When would you use MongoDB transactions? What is the performance cost and how do you minimize it?" },
+            { "order": 3, "question": "Compare embedded vs referenced document design. Give a scenario where each is the correct choice." },
+            { "order": 4, "question": "What is a multikey index in MongoDB? When is it created automatically? What are its limitations?" },
+            { "order": 5, "question": "You have a MongoDB collection with 10M documents. A $lookup is extremely slow. What are your options?" }
+          ]
+        },
+        {
+          "day_number": 20,
+          "title": "Database Architecture — Selection, Polyglot Persistence, Data Modeling",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["Database Design", "Polyglot Persistence", "System Design"],
+          "tasks": [
+            { "order": 1, "title": "Design polyglot persistence architecture for Twitter-like app: which data in PostgreSQL, Redis, Elasticsearch, Cassandra", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Study ClickHouse for analytics: column store vs row store performance difference — run benchmark", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Study TimescaleDB for time-series: continuous aggregates, compression — when to use over raw PostgreSQL", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Design database schema for a fintech app: strict normalization + audit log + ACID requirements", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Study PlanetScale / CockroachDB distributed SQL: what problems they solve vs standard PostgreSQL", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "For a social media app: where would you store user profiles, posts, followers, feed, and analytics? Justify each choice." },
+            { "order": 2, "question": "What is a column store and why is ClickHouse so much faster than PostgreSQL for aggregation queries?" },
+            { "order": 3, "question": "When would you use CockroachDB instead of PostgreSQL? What does it give you that PostgreSQL doesn't?" },
+            { "order": 4, "question": "Design an audit log system: should it be in the same database, a separate DB, or a message queue? Trade-offs?" },
+            { "order": 5, "question": "What is denormalization? When do you break 3NF deliberately and how do you manage consistency?" }
+          ]
+        },
+        {
+          "day_number": 21,
+          "title": "Week 3 Review — Data Layer Project: Social App Backend Data Architecture",
+          "difficulty": "boss",
+          "xp_reward": 300,
+          "hours_target": 10,
+          "topics": ["PostgreSQL", "Redis", "MongoDB", "Project", "Architecture"],
+          "tasks": [
+            { "order": 1, "title": "Design + implement complete data layer for a social media app: users, posts, follows, feed, comments", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "PostgreSQL: write all migration files, seed data, run EXPLAIN ANALYZE on every query you write", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Redis: implement feed caching with cache-aside, session storage, rate limiting", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "MongoDB: implement activity/event log with proper indexes", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Write technical document: 'Why I chose this database for each piece of data' — justify every decision", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Write Week 3 blog post: your biggest database insight from this week", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "For your social app: how does the feed work? Walk through the data flow from 'user posts' to 'follower sees it'." },
+            { "order": 2, "question": "What was the slowest query you wrote? How did you find it and how did you fix it?" },
+            { "order": 3, "question": "If your app grew to 10M users, what would break first in your data layer? How would you fix it?" }
+          ]
+        }
+      ]
+    },
+    {
+      "week_number": 4,
+      "title": "System Design Mastery + Kafka + Real-time Architecture",
+      "theme": "Think at scale — the skill that separates SDE-2 from Senior",
+      "color_accent": "#F59E0B",
+      "xp_target": 1900,
+      "days": [
+        {
+          "day_number": 22,
+          "title": "Distributed Systems Fundamentals — CAP Theorem, Consistency Models, Patterns",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Distributed Systems", "CAP Theorem", "Consistency", "Fault Tolerance"],
+          "tasks": [
+            { "order": 1, "title": "Study CAP Theorem deeply: draw the CP vs AP vs CA examples (MongoDB, Cassandra, PostgreSQL) with real failure scenarios", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Understand all consistency models: Strong, Sequential, Causal, Eventual — with real-world example for each", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Study Two-Phase Commit: draw the protocol, identify exactly where it hangs on coordinator failure", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Implement the Saga pattern: build a 4-step order flow with compensating transactions", "difficulty": "boss", "xp_value": 100 },
+            { "order": 5, "title": "Implement Circuit Breaker pattern with 3 states: Closed, Open, Half-Open — test with a flaky service", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Implement Retry with exponential backoff + jitter — understand why jitter prevents thundering herd", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Explain CAP theorem. Your database suffers a network partition — you must choose C or A. What do you choose and why?" },
+            { "order": 2, "question": "What is the difference between eventual consistency and strong consistency? Give a real app where each is appropriate." },
+            { "order": 3, "question": "Why does Two-Phase Commit block? What happens when the coordinator crashes between Phase 1 and Phase 2?" },
+            { "order": 4, "question": "What is the Saga pattern? Compare choreography vs orchestration with a real e-commerce order flow." },
+            { "order": 5, "question": "What is idempotency and why does it matter for microservices? How do you implement an idempotency key?" },
+            { "order": 6, "question": "Explain the circuit breaker pattern. What triggers the transition from Closed → Open → Half-Open?" },
+            { "order": 7, "question": "Why do you add jitter to exponential backoff? What problem does jitter solve?" }
+          ]
+        },
+        {
+          "day_number": 23,
+          "title": "Scalability Patterns — Load Balancing, Consistent Hashing, CQRS, Event Sourcing",
+          "difficulty": "hard",
+          "xp_reward": 250,
+          "hours_target": 9,
+          "topics": ["Scalability", "Load Balancing", "Consistent Hashing", "CQRS", "Event Sourcing"],
+          "tasks": [
+            { "order": 1, "title": "Implement Consistent Hashing in code — add/remove nodes and verify minimal key remapping", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Design URL shortener system: data model, read/write path, caching, scaling to 1B URLs", "difficulty": "boss", "xp_value": 100 },
+            { "order": 3, "title": "Implement CQRS pattern: separate read/write models for a high-read booking system", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Study Event Sourcing: build a simple bank account that stores events (Deposit/Withdraw) not balance", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Design Twitter timeline: fan-out-on-write vs fan-out-on-read — implement both, compare", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is consistent hashing? How does it minimize remapping when a node is added or removed from the ring?" },
+            { "order": 2, "question": "Design a URL shortener for 100M shortened URLs. Walk through the full system: hash function, DB, cache, redirect." },
+            { "order": 3, "question": "What is CQRS? Why would you separate read and write models? What is the consistency tradeoff?" },
+            { "order": 4, "question": "What is Event Sourcing? What does 'replay capability' mean? What problem does it solve that CRUD doesn't?" },
+            { "order": 5, "question": "Twitter feed: fan-out-on-write vs fan-out-on-read. Which does Twitter actually use? Why does it depend on follower count?" },
+            { "order": 6, "question": "What is database sharding? What is a hotspot shard and how do you prevent it?" }
+          ]
+        },
+        {
+          "day_number": 24,
+          "title": "Apache Kafka Architecture — Topics, Partitions, Producers, Consumers",
+          "difficulty": "hard",
+          "xp_reward": 250,
+          "hours_target": 9,
+          "topics": ["Kafka", "Distributed Messaging", "Event Streaming"],
+          "tasks": [
+            { "order": 1, "title": "Set up Kafka locally with Docker — create topics, produce and consume messages with CLI", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Understand the full producer flow: batch.size, linger.ms, compression, partitioner strategies", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Understand consumer groups: partition assignment, rebalancing triggers, stop-the-world vs cooperative rebalancing", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Monitor consumer lag — create a lagging consumer intentionally, then fix it", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Understand ISR (In-Sync Replicas): what happens when a broker falls out of ISR, min.insync.replicas", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Study KRaft mode: why Kafka is removing ZooKeeper dependency — what changes architecturally", "difficulty": "medium", "xp_value": 25 },
+            { "order": 7, "title": "Choose partition keys for 3 different domains: e-commerce orders, user events, IoT sensors — justify each", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Explain Kafka's architecture. What is a partition and why is it the fundamental unit of parallelism?" },
+            { "order": 2, "question": "What is consumer group rebalancing? When is it triggered? How does Cooperative Rebalancing differ from Eager Rebalancing?" },
+            { "order": 3, "question": "Your Kafka consumer group has lag of 10 million messages. What are the possible causes and how do you address each?" },
+            { "order": 4, "question": "What is the ISR (In-Sync Replicas) list? What happens when a broker falls out of ISR and acks=all?" },
+            { "order": 5, "question": "How do you choose a partition key? What happens if you choose user_country as a partition key for an app where 80% of users are from India?" },
+            { "order": 6, "question": "Compare Kafka vs RabbitMQ vs Redis Pub/Sub for a clickstream analytics pipeline. Which do you choose?" }
+          ]
+        },
+        {
+          "day_number": 25,
+          "title": "Kafka Delivery Semantics — Exactly-Once, DLQ, Schema Registry, Connect",
+          "difficulty": "boss",
+          "xp_reward": 275,
+          "hours_target": 10,
+          "topics": ["Kafka", "Delivery Semantics", "Schema Registry", "Kafka Connect", "CDC"],
+          "tasks": [
+            { "order": 1, "title": "Implement at-least-once delivery: acks=all + retries — verify no message loss with a broker failure", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Implement Exactly-Once Semantics (EOS): enable.idempotence + transactional API — performance test vs at-least-once", "difficulty": "boss", "xp_value": 100 },
+            { "order": 3, "title": "Build a Dead Letter Queue: catch poison pill messages, route to DLQ topic, implement DLQ processor", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Set up Confluent Schema Registry with Avro schemas — test schema evolution (add optional field, remove field)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Set up Debezium CDC connector: capture PostgreSQL changes as Kafka events", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Implement log compaction: create a compacted topic, verify old values are garbage collected", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the difference between at-most-once, at-least-once, and exactly-once delivery? What configuration achieves each?" },
+            { "order": 2, "question": "How do idempotent producers work? What are sequence numbers and PID in Kafka's EOS implementation?" },
+            { "order": 3, "question": "What is log compaction in Kafka? What use case does it serve? What happens to a message with a null value (tombstone)?" },
+            { "order": 4, "question": "What is Change Data Capture (CDC)? How does Debezium capture PostgreSQL changes? What does it read from?" },
+            { "order": 5, "question": "Why is Schema Registry important? What is schema evolution and what breaking vs non-breaking changes exist?" },
+            { "order": 6, "question": "Design a Kafka-based pipeline processing 1M clickstream events/second. What partitioning, replication, and consumer strategy?" }
+          ]
+        },
+        {
+          "day_number": 26,
+          "title": "WebSockets Deep Dive — Protocol, Socket.IO, Scaling, SSE",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["WebSockets", "Socket.IO", "Real-time", "SSE", "Scaling"],
+          "tasks": [
+            { "order": 1, "title": "Build a raw WebSocket server (no Socket.IO) — understand the HTTP upgrade handshake, framing, opcodes", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Implement Socket.IO with rooms, namespaces, and Redis adapter for multi-node scaling", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement WebSocket heartbeat: ping/pong detection, dead connection cleanup, reconnection with room rejoin", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Solve the sticky sessions problem: implement Socket.IO with Redis adapter — verify messages work across 2 server instances", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Implement SSE (Server-Sent Events) for one-way notifications — compare to WebSocket for this use case", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Build a presence system: user online/offline detection, heartbeat architecture, handle disconnect gracefully", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "How does the WebSocket upgrade handshake work? What HTTP headers are involved?" },
+            { "order": 2, "question": "What is the sticky sessions problem with WebSockets? How does the Redis adapter for Socket.IO solve it?" },
+            { "order": 3, "question": "What is the difference between WebSockets and SSE? When would you choose SSE over WebSockets?" },
+            { "order": 4, "question": "How do you detect a dead WebSocket connection? Explain the ping/pong mechanism." },
+            { "order": 5, "question": "Design a presence system for 1M concurrent users. What data store? What is your heartbeat interval? What happens at scale?" }
+          ]
+        },
+        {
+          "day_number": 27,
+          "title": "Real-time Systems Patterns — CRDT, Collaborative Editing, Push Notifications",
+          "difficulty": "boss",
+          "xp_reward": 275,
+          "hours_target": 10,
+          "topics": ["CRDT", "Yjs", "Collaborative Editing", "Real-time", "Operational Transform"],
+          "tasks": [
+            { "order": 1, "title": "Study CRDTs (Conflict-free Replicated Data Types) — understand the math behind why they auto-resolve conflicts", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Implement a basic collaborative counter using CRDT (G-Counter or PN-Counter) from scratch", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Set up Yjs: implement collaborative text editing with y-websocket provider and awareness API (live cursors)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Study Operational Transform vs CRDT — understand why modern systems (Notion, Figma) use CRDTs", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Implement Web Push Notifications (FCM) — understand the push service architecture", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Build a live cursor/collaborative presence demo with Yjs Awareness API", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is a CRDT? Why is a last-write-wins approach insufficient for collaborative editing?" },
+            { "order": 2, "question": "What is the difference between Operational Transform and CRDTs? Why did Google Docs use OT and Notion uses CRDT?" },
+            { "order": 3, "question": "How does Yjs work? What is a Y.Doc? How does it sync state between clients?" },
+            { "order": 4, "question": "What is the Yjs Awareness API? How does it enable live cursors without causing document conflicts?" },
+            { "order": 5, "question": "Design a Google Docs competitor at scale: how do you handle 1000 concurrent editors on the same document?" }
+          ]
+        },
+        {
+          "day_number": 28,
+          "title": "Week 4 Capstone — System Design Day: 3 Full Designs",
+          "difficulty": "boss",
+          "xp_reward": 300,
+          "hours_target": 10,
+          "topics": ["System Design", "Architecture", "Distributed Systems"],
+          "tasks": [
+            { "order": 1, "title": "DESIGN 1: Design Slack — real-time messaging, channels, threads, unread counts, search (2 hours)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "DESIGN 2: Design a collaborative document editor (Google Docs) — CRDT, conflict resolution, versioning (2 hours)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 3, "title": "DESIGN 3: Design a live leaderboard for 1M concurrent users — real-time ranking, anti-cheat, latency (2 hours)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 4, "title": "Write up all 3 designs with diagrams (use excalidraw.com) — no diagrams = incomplete", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Write Week 4 blog post: 'What system design actually means — my first month of thinking at scale'", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "For your Slack design: how do you handle message ordering in a distributed system? What guarantees do you provide?" },
+            { "order": 2, "question": "For your Google Docs design: what happens when two users edit the same character position simultaneously?" },
+            { "order": 3, "question": "For your leaderboard: how do you handle 1000 score updates per second to Redis without it becoming a bottleneck?" }
+          ]
+        }
+      ]
+    },
+    {
+      "week_number": 5,
+      "title": "The Beast Project: LiveDocs Collaborative Editor — Core Build",
+      "theme": "Stop learning, start building — your portfolio centerpiece",
+      "color_accent": "#EF4444",
+      "xp_target": 2000,
+      "days": [
+        {
+          "day_number": 29,
+          "title": "LiveDocs — Architecture Design Day (No Code)",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Architecture", "System Design", "Database Design", "Project Planning"],
+          "tasks": [
+            { "order": 1, "title": "Draw complete system diagram: Client → Next.js → Node WS Server → Redis Pub/Sub → multiple WS instances", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Design full database schema: users, documents, document_permissions, document_versions, sessions tables", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Define WebSocket event protocol: list every event name, payload shape, and direction (client↔server)", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Design REST API: all endpoints, request/response shapes, auth requirements, error codes", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Set up Turborepo monorepo: apps/web + apps/server + packages/shared — configure tsconfig references", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Set up Docker Compose: PostgreSQL + Redis + server + web — verify everything connects", "difficulty": "easy", "xp_value": 10 },
+            { "order": 7, "title": "Choose ORM: Drizzle vs Prisma — write a 1-page justification for your choice", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "For LiveDocs: how do you handle a user losing internet connection mid-edit? What happens to their local changes?" },
+            { "order": 2, "question": "What is your document versioning strategy? How do you store diffs vs snapshots? What are the tradeoffs?" },
+            { "order": 3, "question": "If 100 people are editing the same document, how does your WebSocket architecture scale?" }
+          ]
+        },
+        {
+          "day_number": 30,
+          "title": "LiveDocs — Monorepo Setup + Auth + Database Foundation",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Next.js", "Auth", "PostgreSQL", "Drizzle", "Monorepo"],
+          "tasks": [
+            { "order": 1, "title": "Initialize Turborepo with proper package.json workspaces, shared TypeScript config, shared ESLint config", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Implement NextAuth v5: GitHub + Google OAuth providers + email magic link", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Write all database migrations (Drizzle or Prisma): users, sessions, documents, permissions tables", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Implement middleware.ts for route protection — protect /dashboard, /app/*, /api/* routes", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Build landing page with login CTA — server component, no client bundle", "difficulty": "easy", "xp_value": 10 },
+            { "order": 6, "title": "Seed database with 2 test users and 3 test documents — write seed script", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "How does NextAuth v5 store sessions in the App Router? What changed from v4?" },
+            { "order": 2, "question": "What is the difference between JWT and database sessions in NextAuth? When do you choose each?" }
+          ]
+        },
+        {
+          "day_number": 31,
+          "title": "LiveDocs — WebSocket Server + Yjs CRDT Integration",
+          "difficulty": "boss",
+          "xp_reward": 275,
+          "hours_target": 10,
+          "topics": ["WebSockets", "Socket.IO", "Yjs", "CRDT", "Redis"],
+          "tasks": [
+            { "order": 1, "title": "Build Socket.IO server with Redis adapter — verify messages route correctly across 2 server instances", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Implement Yjs Y.Doc server: persist document state to Redis, load from Redis on connection", "difficulty": "boss", "xp_value": 100 },
+            { "order": 3, "title": "Implement room join/leave with proper cleanup — no memory leaks on disconnect", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Implement presence tracking: user joins/leaves, store cursor position in Yjs Awareness", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Implement document persistence: debounced save from Yjs to PostgreSQL every 5 seconds", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "How does Yjs sync state between two clients? What is the Y.Doc update format?" },
+            { "order": 2, "question": "How does your server handle the case where Client A and Client B both edit offline then reconnect?" }
+          ]
+        },
+        {
+          "day_number": 32,
+          "title": "LiveDocs — Tiptap Editor + Real-time Collaboration UI",
+          "difficulty": "boss",
+          "xp_reward": 275,
+          "hours_target": 10,
+          "topics": ["Tiptap", "ProseMirror", "Yjs", "React", "Editor"],
+          "tasks": [
+            { "order": 1, "title": "Set up Tiptap with extensions: Bold, Italic, Heading (H1-H3), BulletList, OrderedList, CodeBlock, Link, Image", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Connect Tiptap CollaborationExtension to Yjs Y.Doc via y-websocket provider", "difficulty": "boss", "xp_value": 100 },
+            { "order": 3, "title": "Implement CollaborationCursor extension: show other users' cursors with name and color", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Build floating bubble menu (Bold, Italic, Link) that appears on text selection", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Build slash command menu (/heading, /code, /image, /quote) — triggered by typing '/'", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Test with two browser tabs: verify simultaneous editing works with live cursors", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is ProseMirror? How does Tiptap build on top of it? Why does it use Yjs for collaboration?" },
+            { "order": 2, "question": "How does the CollaborationCursor extension track cursor position across clients?" }
+          ]
+        },
+        {
+          "day_number": 33,
+          "title": "LiveDocs — Document Management, Auto-Save, Versioning",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Next.js", "TanStack Query", "Optimistic UI", "PostgreSQL"],
+          "tasks": [
+            { "order": 1, "title": "Build document dashboard: list documents with title, last edited, collaborators, status", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Implement Create/Delete/Rename with optimistic UI using TanStack Query mutations", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement debounced auto-save (500ms) with manual save (Ctrl+S) and save status indicator", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Implement document versioning: BullMQ job that snapshots document every 5 minutes to DB", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Build version history sidebar: list snapshots, preview any version, restore to version", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "How does optimistic UI rollback work in TanStack Query? What happens if the server returns an error?" },
+            { "order": 2, "question": "What is the difference between debounce and throttle? Which do you use for auto-save and why?" }
+          ]
+        },
+        {
+          "day_number": 34,
+          "title": "LiveDocs — Permissions System + Sharing + Email Invites",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["RBAC", "Auth", "Permissions", "BullMQ", "Email"],
+          "tasks": [
+            { "order": 1, "title": "Implement 3-role permissions: Owner, Editor, Viewer — enforce on API + WebSocket + UI", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Build share modal: invite by email (BullMQ → Resend/Nodemailer), set permission level", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement shareable public links with permission level: anyone-with-link-can-view/edit", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Build TypeScript permission guard: HOC/hook that gates UI elements by permission level", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Test all permission edge cases: viewer tries to edit, owner transfers ownership", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is RBAC? How is it different from ABAC (attribute-based access control)?" },
+            { "order": 2, "question": "How do you prevent a Viewer from editing via the WebSocket directly (bypassing the UI)?" }
+          ]
+        },
+        {
+          "day_number": 35,
+          "title": "LiveDocs — Week 5 Polish, Deploy to Production, Demo Video",
+          "difficulty": "medium",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Deployment", "Docker", "Nginx", "Documentation"],
+          "tasks": [
+            { "order": 1, "title": "Write comprehensive README: architecture diagram, local setup, env vars, API documentation", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Deploy backend to Railway or AWS EC2 with Nginx reverse proxy + SSL (Let's Encrypt)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Deploy frontend to Vercel — configure environment variables for production WebSocket URL", "difficulty": "easy", "xp_value": 10 },
+            { "order": 4, "title": "Record 3-minute demo video: show real-time editing with 2 browser windows side by side", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Write Week 5 blog post: 'Building real-time collaboration with Yjs — what I learned'", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Create GitHub repository with proper tags: nextjs, yjs, websockets, collaborative-editor", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the difference between Railway and EC2 for this deployment? When would you choose each?" },
+            { "order": 2, "question": "How does Nginx act as a reverse proxy for WebSocket connections? What header must you configure?" }
+          ]
+        }
+      ]
+    },
+    {
+      "week_number": 6,
+      "title": "Performance Engineering + Security + Observability",
+      "theme": "What separates a working app from a production-grade one",
+      "color_accent": "#06B6D4",
+      "xp_target": 1800,
+      "days": [
+        {
+          "day_number": 36,
+          "title": "Backend Performance Engineering — Profiling, Query Optimization, Caching",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Performance", "Profiling", "Node.js", "Database Optimization"],
+          "tasks": [
+            { "order": 1, "title": "Profile LiveDocs backend with clinic.js flame graphs — find and fix the top 3 hotspots", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Run EXPLAIN ANALYZE on every LiveDocs API query — create missing indexes", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement response compression (brotli > gzip) with proper content-type filtering", "difficulty": "easy", "xp_value": 10 },
+            { "order": 4, "title": "Implement cache-aside for document metadata (Redis) — measure hit rate improvement", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Implement Redis sliding window rate limiter on all public API endpoints", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Configure PgBouncer connection pooling for LiveDocs — test under 100 concurrent connections", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is a flame graph? How do you read it? What does a wide bar indicate?" },
+            { "order": 2, "question": "Your API p99 latency is 800ms. Walk through your systematic investigation from top to bottom." },
+            { "order": 3, "question": "What is connection pool exhaustion? How do you set the right pool size?" },
+            { "order": 4, "question": "How does brotli compare to gzip? When would you NOT compress a response?" },
+            { "order": 5, "question": "What is your cache hit rate target? What are the top 3 reasons a cache hit rate is low?" }
+          ]
+        },
+        {
+          "day_number": 37,
+          "title": "Frontend Performance — Bundle Size, Core Web Vitals, Code Splitting",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Next.js", "Bundle Optimization", "Core Web Vitals", "Lighthouse"],
+          "tasks": [
+            { "order": 1, "title": "Run @next/bundle-analyzer on LiveDocs — identify and eliminate/defer the 3 heaviest imports", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Implement dynamic imports for Tiptap (heavy editor) — show lazy loading skeleton while editor loads", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Set up Lighthouse CI in GitHub Actions — fail PRs if LCP degrades > 20%", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Implement Next.js streaming for the document list — skeleton → content progressive reveal", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Achieve 90+ Lighthouse performance score on LiveDocs landing page and document list page", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "How does dynamic import() in Next.js work? What is the loading state? How does it affect SSR?" },
+            { "order": 2, "question": "Your Tiptap editor bundle is 400KB. What strategies do you use to reduce or defer it?" },
+            { "order": 3, "question": "What is a Lighthouse CI regression? How do you set up a performance budget?" }
+          ]
+        },
+        {
+          "day_number": 38,
+          "title": "Web Security Engineering — OWASP, JWT Security, Input Validation",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Security", "OWASP", "JWT", "XSS", "CSRF", "Zod"],
+          "tasks": [
+            { "order": 1, "title": "Security audit LiveDocs against OWASP Top 10 — find and fix every issue you can find", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Implement JWT security: algorithm confusion attack prevention, httpOnly cookie storage, token rotation", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Add Zod validation to every single API endpoint — no unvalidated user input anywhere", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Configure Content Security Policy headers — use nonce-based approach for inline scripts", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Add WebSocket security: authenticate on connection, per-message rate limiting, input sanitization", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is a JWT algorithm confusion attack? How does specifying alg: HS256 server-side prevent it?" },
+            { "order": 2, "question": "Why store JWTs in httpOnly cookies instead of localStorage? What attack does it prevent?" },
+            { "order": 3, "question": "What is IDOR (Insecure Direct Object Reference)? Find a potential IDOR in LiveDocs and fix it." },
+            { "order": 4, "question": "What is XSS? How does Content Security Policy prevent it? What does nonce-based CSP add?" },
+            { "order": 5, "question": "What CSRF risk exists in Server Actions? How does Next.js mitigate it by default?" }
+          ]
+        },
+        {
+          "day_number": 39,
+          "title": "Observability — Structured Logging, OpenTelemetry, Error Tracking",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Observability", "OpenTelemetry", "Sentry", "Logging", "Metrics"],
+          "tasks": [
+            { "order": 1, "title": "Implement structured logging with Pino: correlation IDs, log levels, redact sensitive fields (passwords, tokens)", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Add OpenTelemetry SDK to both Next.js and Node.js: trace context propagation across services", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Set up Sentry: source maps, user context, custom breadcrumbs, performance monitoring", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Add /health and /ready endpoints with detailed checks: DB connectivity, Redis ping, WS server status", "difficulty": "easy", "xp_value": 10 },
+            { "order": 5, "title": "Define SLOs for LiveDocs: availability, latency p99, error rate — document them", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Add Prometheus metrics: request count, latency histograms, active WebSocket connections gauge", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is a correlation ID? How do you propagate it across microservices and into logs?" },
+            { "order": 2, "question": "What is the difference between a trace, span, and log in observability?" },
+            { "order": 3, "question": "What is an SLO? What's the difference between SLO, SLA, and SLI?" },
+            { "order": 4, "question": "What is the difference between /health and /ready endpoints? Why do Kubernetes probes need both?" }
+          ]
+        },
+        {
+          "day_number": 40,
+          "title": "Testing Strategy — Unit, Integration, E2E for LiveDocs",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Testing", "Jest", "Vitest", "Playwright", "TDD"],
+          "tasks": [
+            { "order": 1, "title": "Write unit tests for all business logic: permission checks, document versioning, XP calculation", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Write integration tests for all API endpoints using Supertest + in-memory test DB", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Write Playwright E2E test: two users collaborate on same document — verify real-time sync", "difficulty": "boss", "xp_value": 100 },
+            { "order": 4, "title": "Write Playwright test for auth flow: login, create document, invite user, edit as invited user", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Achieve 70%+ test coverage on critical paths — run coverage report and document gaps", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "How do you test WebSocket/real-time functionality with Playwright? How do you open two browser contexts?" },
+            { "order": 2, "question": "What is the difference between unit, integration, and E2E tests? What does each verify?" },
+            { "order": 3, "question": "What is a test double? What is the difference between a mock, stub, spy, and fake?" }
+          ]
+        },
+        {
+          "day_number": 41,
+          "title": "Second Project: Real-time Analytics Presence Dashboard",
+          "difficulty": "hard",
+          "xp_reward": 250,
+          "hours_target": 9,
+          "topics": ["Real-time", "WebSockets", "Analytics", "Redis", "Project"],
+          "tasks": [
+            { "order": 1, "title": "Build a real-time 'who's on my site right now' dashboard: page views, active users, current pages", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Implement client-side beacon: send page view + heartbeat every 15s via WebSocket", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Store presence data in Redis with TTL (user disappears after 30s of no heartbeat)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Build live dashboard: updating every second — users online, pages being viewed, referrer sources", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Add recharts: live updating line chart of users online over last 60 minutes", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Deploy and add analytics snippet to your LiveDocs project — watch live users", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "How do you handle the case where a user closes the tab without sending a disconnect event?" },
+            { "order": 2, "question": "What is the tradeoff between WebSocket heartbeat interval (15s vs 5s vs 60s) for this use case?" }
+          ]
+        },
+        {
+          "day_number": 42,
+          "title": "Week 6 Review + LeetCode Trees + Graph Patterns",
+          "difficulty": "medium",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["LeetCode", "Trees", "Graphs", "Review"],
+          "tasks": [
+            { "order": 1, "title": "LeetCode Trees: Invert Binary Tree, Maximum Depth, Validate BST, LCA of BST", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "LeetCode Trees: Serialize and Deserialize Binary Tree, Right Side View", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "LeetCode Graphs: Number of Islands (BFS/DFS), Course Schedule (topological sort)", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "LeetCode Graphs: Word Ladder (BFS shortest path), Pacific Atlantic Water Flow", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Write Week 6 blog: 'Performance engineering learnings — what I found in my own codebase'", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "How do you detect a cycle in a directed graph? Explain the DFS coloring approach (white/gray/black)." },
+            { "order": 2, "question": "What is topological sort? How does Course Schedule reduce to topological sort?" },
+            { "order": 3, "question": "Why is BFS preferred over DFS for finding shortest paths in an unweighted graph?" }
+          ]
+        }
+      ]
+    },
+    {
+      "week_number": 7,
+      "title": "API Design Mastery + Microservices + LeetCode Intensive",
+      "theme": "Engineering breadth — the last technical gap before interview mode",
+      "color_accent": "#F97316",
+      "xp_target": 1900,
+      "days": [
+        {
+          "day_number": 43,
+          "title": "REST API Design Mastery — Versioning, Pagination, Error Formats",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["API Design", "REST", "HTTP", "Pagination", "Error Handling"],
+          "tasks": [
+            { "order": 1, "title": "Study REST constraints deeply: stateless, uniform interface, HATEOAS — why most REST isn't truly RESTful", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Implement cursor-based pagination: write the SQL, the API response, and the client-side infinite scroll", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement Problem Details RFC 7807 error format — migrate LiveDocs errors to this format", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Design an idempotent POST endpoint with idempotency keys — implement it in LiveDocs document creation", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Design rate limiting response: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After headers", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Design a bulk delete API: decide on request format, handle partial failures, correct status code", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is cursor-based pagination? How is it different from offset? Write the SQL query for it." },
+            { "order": 2, "question": "What HTTP status code for permission denied — 401 or 403? What is the semantic difference?" },
+            { "order": 3, "question": "What is idempotency? How do you make a POST endpoint idempotent with an idempotency key?" },
+            { "order": 4, "question": "What is Problem Details (RFC 7807)? Why is it better than a custom error schema?" },
+            { "order": 5, "question": "You have a bulk delete endpoint. 3 out of 10 deletes succeed, 7 fail. What HTTP status code do you return?" },
+            { "order": 6, "question": "What are the tradeoffs of URL versioning (/v1/) vs header versioning? Which do you prefer and why?" },
+            { "order": 7, "question": "What HTTP methods are idempotent? Is DELETE idempotent? What about PATCH?" }
+          ]
+        },
+        {
+          "day_number": 44,
+          "title": "GraphQL + gRPC Fundamentals — Know Enough to Decide When to Use Them",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["GraphQL", "gRPC", "Protocol Buffers", "API Design"],
+          "tasks": [
+            { "order": 1, "title": "Build a basic GraphQL API with Apollo Server: queries, mutations, subscriptions for LiveDocs documents", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Implement DataLoader: solve the N+1 problem for document → users query", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Write a .proto file for a document service — generate TypeScript types with buf or ts-proto", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Implement a simple gRPC server and client in Node.js — benchmark vs REST on same operation", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Write a decision document: REST vs GraphQL vs gRPC — for which LiveDocs use case would you choose each", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the N+1 problem in GraphQL? How does DataLoader solve it with batching?" },
+            { "order": 2, "question": "When would you choose gRPC over REST? What does it give you that REST cannot?" },
+            { "order": 3, "question": "What are the disadvantages of GraphQL that often make REST the better choice?" },
+            { "order": 4, "question": "What is schema stitching and federation in GraphQL? When do you need it?" },
+            { "order": 5, "question": "What is Protocol Buffers binary serialization? Why is it 4-8x more compact than JSON?" }
+          ]
+        },
+        {
+          "day_number": 45,
+          "title": "Microservices Patterns — Outbox, Service Mesh, API Gateway",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Microservices", "Outbox Pattern", "API Gateway", "Service Discovery"],
+          "tasks": [
+            { "order": 1, "title": "Implement the Outbox Pattern: guarantee event publishing with DB transactions in LiveDocs", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Study API Gateway patterns: Kong vs AWS API Gateway — configure auth, rate limiting, routing at the edge", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Implement the Strangler Fig: extract LiveDocs notification service as a separate microservice", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Study service mesh (Istio concepts): mTLS between services, traffic management, circuit breaking at mesh layer", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Implement the Bulkhead pattern: isolate failures between LiveDocs document service and notification service", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the Outbox Pattern? Why is a simple Kafka produce inside a DB transaction insufficient?" },
+            { "order": 2, "question": "What is an API Gateway? What cross-cutting concerns should live there vs in individual services?" },
+            { "order": 3, "question": "What is the Strangler Fig pattern? Walk through the steps to extract a feature from a monolith." },
+            { "order": 4, "question": "What is a service mesh? What does mTLS between services provide that you can't easily do in application code?" },
+            { "order": 5, "question": "What is the Bulkhead pattern? How does it prevent one slow service from taking down the entire system?" }
+          ]
+        },
+        {
+          "day_number": 46,
+          "title": "Docker Mastery + CI/CD Pipeline Engineering",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Docker", "CI/CD", "GitHub Actions", "Security"],
+          "tasks": [
+            { "order": 1, "title": "Write multi-stage Dockerfile for LiveDocs frontend: build stage → nginx stage — minimize image size", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Write multi-stage Dockerfile for LiveDocs backend: optimize layer caching order, non-root user, health check", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Build complete GitHub Actions workflow: lint → test → build → staging deploy → prod deploy with approval gate", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Implement Docker layer caching in GitHub Actions — measure build time before/after", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Security: scan Docker images with Trivy — fix all HIGH/CRITICAL CVEs found", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Set up GitHub Dependabot for automated security patches on all dependencies", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is a multi-stage Docker build? How does it reduce final image size?" },
+            { "order": 2, "question": "What is Docker layer caching? Why does the order of instructions matter?" },
+            { "order": 3, "question": "Why should Dockerfiles run as non-root? What is the --no-new-privileges flag?" },
+            { "order": 4, "question": "What is a blue-green deployment? How do you implement it in GitHub Actions?" },
+            { "order": 5, "question": "What should a CI pipeline do on every PR? What gates should exist before production deploy?" }
+          ]
+        },
+        {
+          "day_number": 47,
+          "title": "LeetCode Intensive — DP, Heaps, Backtracking",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["LeetCode", "Dynamic Programming", "Heaps", "Backtracking"],
+          "tasks": [
+            { "order": 1, "title": "DP: Coin Change, Climbing Stairs, Longest Common Subsequence — understand the recurrence relation for each", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "DP: Longest Increasing Subsequence, Edit Distance, Word Break — time yourself (target: 20 min each)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "DP Hard: Burst Balloons or Regular Expression Matching — spend full 35 minutes", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Heaps: Top K Frequent Elements, Kth Largest in Array, Merge K Sorted Lists", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Heaps Hard: Find Median from Data Stream (two heaps approach)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 6, "title": "Backtracking: Permutations, Combination Sum, N-Queens", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the pattern for identifying a DP problem? How do you go from brute force → memoization → tabulation?" },
+            { "order": 2, "question": "Explain the two-heap approach for finding the median from a data stream. Why two heaps?" },
+            { "order": 3, "question": "What is backtracking? How do you know when to backtrack in a tree traversal?" },
+            { "order": 4, "question": "What is the time complexity of Merge K Sorted Lists using a min-heap? Walk through the derivation." }
+          ]
+        },
+        {
+          "day_number": 48,
+          "title": "LeetCode Intensive — Graphs, Trie, Monotonic Stack, Union-Find",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["LeetCode", "Graphs", "Trie", "Stack", "Union-Find"],
+          "tasks": [
+            { "order": 1, "title": "Graphs: Dijkstra's Algorithm from scratch (min-heap implementation) — time complexity derivation", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Graphs: Bellman-Ford, Floyd-Warshall — when each is applicable", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Trie: Implement Trie from scratch, Trie-based Word Search II", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Monotonic Stack: Next Greater Element, Largest Rectangle in Histogram, Trapping Rain Water", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Union-Find: implement with path compression + union by rank — Number of Connected Components, Redundant Connection", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Implement Dijkstra's algorithm. What data structure makes it O((V+E)logV) instead of O(V^2)?" },
+            { "order": 2, "question": "What is a monotonic stack? Why does it solve Next Greater Element in O(n) instead of O(n^2)?" },
+            { "order": 3, "question": "What is Union-Find? What is path compression and why does it make it nearly O(1) amortized?" },
+            { "order": 4, "question": "When do you use Bellman-Ford instead of Dijkstra? What is Bellman-Ford's time complexity?" }
+          ]
+        },
+        {
+          "day_number": 49,
+          "title": "Week 7 Review — LRU Cache, System Design + Blog Post",
+          "difficulty": "medium",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["LeetCode", "Review", "System Design", "Writing"],
+          "tasks": [
+            { "order": 1, "title": "LeetCode: LRU Cache (HashMap + Doubly Linked List) — implement fully from scratch in 25 minutes", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "LeetCode: Design Twitter (OOP + heap) — simplified feed design", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "System Design Practice: Design a distributed job scheduler (cron but distributed, exactly-once)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Write Week 7 blog: 'API design decisions in LiveDocs — everything I changed and why'", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "LeetCode review: look at the 5 problems you got wrong — understand the pattern you missed", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Implement LRU Cache from memory. What is the time complexity of get and put operations?" },
+            { "order": 2, "question": "Design a distributed job scheduler. How do you ensure exactly-once execution across multiple nodes?" }
+          ]
+        }
+      ]
+    },
+    {
+      "week_number": 8,
+      "title": "Interview Domination + Portfolio Polish + Job Application Blitz",
+      "theme": "This is what everything led to. Execute.",
+      "color_accent": "#10B981",
+      "xp_target": 1600,
+      "days": [
+        {
+          "day_number": 50,
+          "title": "System Design Interview Framework + Practice Design #1",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["System Design", "Interview Prep"],
+          "tasks": [
+            { "order": 1, "title": "Master the 5-step system design framework: Clarify → Estimate → High-level → Deep dive → Bottlenecks", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Practice Design: Design a notification system (100M users, push/email/SMS, delivery guarantees)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 3, "title": "Practice Design: Design a payment processing system (ACID, idempotency, fraud detection)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 4, "title": "Record yourself doing one system design — watch it back, identify communication gaps", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Study capacity estimation math: QPS, storage, bandwidth — be able to do rough math in 3 minutes", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Design a notification system for 100M users. Handle push, email, SMS. How do you guarantee delivery?" },
+            { "order": 2, "question": "What back-of-envelope math do you use to estimate: Twitter's daily storage need for tweets?" },
+            { "order": 3, "question": "What are the 3 most important questions to ask in the first 5 minutes of a system design interview?" }
+          ]
+        },
+        {
+          "day_number": 51,
+          "title": "System Design Interview Practice #2 + Coding Interview Framework",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["System Design", "Coding Interview", "Interview Prep"],
+          "tasks": [
+            { "order": 1, "title": "Practice Design: Design Kafka itself — the distributed log (partitions, replication, consumer groups)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Practice Design: Design a video streaming service CDN (Netflix-style upload, encoding, distribution)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 3, "title": "Master coding interview framework: Understand → Brute force → Optimize → Code → Test — practice on 3 problems", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Practice narrating your thought process while coding — do this out loud for every problem today", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Design Kafka: what are the key components? How does replication work? What is the role of the controller?" },
+            { "order": 2, "question": "Design Netflix CDN: how do you ensure a video starts playing in < 2 seconds worldwide?" }
+          ]
+        },
+        {
+          "day_number": 52,
+          "title": "Behavioral Interview Preparation — Stories, STAR Method, Senior Questions",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["Behavioral Interview", "Communication", "Leadership"],
+          "tasks": [
+            { "order": 1, "title": "Write and rehearse 3 leadership stories: technical decision influence, cross-team collaboration, technical strategy", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Write and rehearse conflict story: disagreement with manager/team — focus on process and outcome", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Write and rehearse failure story: production incident or architectural mistake — be brutally honest", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Prepare your LiveDocs architecture story: problem → decision → implementation → learnings", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Prepare answers: 'How do you approach code review?' 'How do you handle technical debt?' 'How do you mentor?'", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Prepare 5 smart questions to ask interviewers at different stages: recruiter, technical, hiring manager", "difficulty": "easy", "xp_value": 10 },
+            { "order": 7, "title": "Record yourself answering 5 behavioral questions — watch it back, iterate on clarity and confidence", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "For your strongest leadership story: can you articulate the specific technical impact in numbers?" },
+            { "order": 2, "question": "What is your narrative for why you left your previous company? It must be positive, honest, and forward-looking." },
+            { "order": 3, "question": "When asked about salary expectations, what is your response strategy for different scenarios?" }
+          ]
+        },
+        {
+          "day_number": 53,
+          "title": "Mock Interview Day 1 — 2 Full Mock Sessions",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Mock Interview", "Coding", "System Design"],
+          "tasks": [
+            { "order": 1, "title": "Schedule and complete Pramp.com mock interview #1 (peer-to-peer, coding focused)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Schedule and complete Pramp.com mock interview #2 (different problem category)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Do a self-directed system design mock: set a 45-minute timer, design 'Uber dispatch system' alone", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Debrief each session: write 3 things you did well and 3 things to improve", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "LeetCode: do 3 problems timed — simulate interview conditions (no hints, no looking up)", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "After your Pramp sessions: what patterns did you notice in how you got stuck? What will you do differently?" },
+            { "order": 2, "question": "In your Uber design: how does the dispatch matching algorithm work? What data structure? What latency target?" }
+          ]
+        },
+        {
+          "day_number": 54,
+          "title": "Resume Upgrade + Portfolio Website Build",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["Resume", "Portfolio", "Personal Branding"],
+          "tasks": [
+            { "order": 1, "title": "Rewrite resume: add LiveDocs with specific metrics (X concurrent users, Y ms WebSocket latency, Z% uptime)", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Remove Spring Boot and Rails from resume — they dilute your Next.js/real-time specialist positioning", "difficulty": "easy", "xp_value": 10 },
+            { "order": 3, "title": "Add to skills: Yjs/CRDT, OpenTelemetry, Playwright, Drizzle ORM, BullMQ, Turborepo", "difficulty": "easy", "xp_value": 10 },
+            { "order": 4, "title": "Buy yourname.dev domain — set up portfolio with: hero, projects (LiveDocs + Synomics + Job Ready API), blog link", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Optimize GitHub: proper README for each project with demo GIF, architecture diagram, quick start", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Update LinkedIn: title, featured section (LiveDocs), skills endorsements, About section rewrite", "difficulty": "medium", "xp_value": 25 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is your 30-second pitch as a Senior Full Stack Engineer? Practice saying it out loud." },
+            { "order": 2, "question": "What specific metrics can you put on your LiveDocs bullet? Users, latency, uptime, test coverage?" }
+          ]
+        },
+        {
+          "day_number": 55,
+          "title": "Mock Interview Day 2 — Interviewing.io + System Design",
+          "difficulty": "hard",
+          "xp_reward": 225,
+          "hours_target": 9,
+          "topics": ["Mock Interview", "System Design"],
+          "tasks": [
+            { "order": 1, "title": "Book and complete an Interviewing.io session (anonymous mock with FAANG engineer)", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Find a mentor on ADPList.org for a system design mock interview — book for this week", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Practice presenting LiveDocs: 5-minute technical walkthrough, be ready for deep dive questions", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "LeetCode final 5: mix of medium and hard, timed — no hints, submit only when confident", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "After your Interviewing.io session: what was the hardest question asked? What would your better answer be?" },
+            { "order": 2, "question": "Can you explain the LiveDocs CRDT architecture in 3 minutes to a non-technical interviewer?" }
+          ]
+        },
+        {
+          "day_number": 56,
+          "title": "Technical Blog Post — Best Technical Article of the Journey",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["Writing", "Technical Blog", "Personal Branding"],
+          "tasks": [
+            { "order": 1, "title": "Write and publish your best technical article: 'Building a Real-time Collaborative Editor with Yjs and Next.js 15'", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Include: architecture diagram, code snippets for the hardest parts, what went wrong, what you learned", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Publish to dev.to AND medium — cross-post for maximum reach", "difficulty": "easy", "xp_value": 10 },
+            { "order": 4, "title": "Share on LinkedIn with a narrative post about the 60-day journey — tag the technologies", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Share in relevant Discord communities: Next.js Discord, TypeScript Discord, r/reactjs", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is the single most interesting technical problem you solved in the last 60 days?" },
+            { "order": 2, "question": "After sharing: what was the feedback? What questions did readers ask that you couldn't answer?" }
+          ]
+        },
+        {
+          "day_number": 57,
+          "title": "Application Blitz Day 1 — Tier 1 & Tier 2 Companies",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["Job Search", "Applications"],
+          "tasks": [
+            { "order": 1, "title": "Apply to 5 Tier 1 companies: Razorpay, Zepto, Groww, PhonePe, Cred — tailor cover letter for each", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "Apply to 5 Tier 2 companies: Freshworks, Chargebee, Postman, BrowserStack, Juspay", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Find 5 referral opportunities: LinkedIn connections at target companies — message asking for referral", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Apply to 3 remote roles: Toptal, Remote.com, or direct remote listings", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Set up job tracking spreadsheet: company, role, date applied, status, next action", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is your target compensation range? How did you arrive at this number?" },
+            { "order": 2, "question": "What is your strategy if you don't hear back from a company within 10 business days?" }
+          ]
+        },
+        {
+          "day_number": 58,
+          "title": "Application Blitz Day 2 — Tier 3 + Networking",
+          "difficulty": "medium",
+          "xp_reward": 175,
+          "hours_target": 8,
+          "topics": ["Job Search", "Networking"],
+          "tasks": [
+            { "order": 1, "title": "Apply to 10 Tier 3 companies: Series B/C product startups paying 18-28 LPA — Naukri, LinkedIn, AngelList", "difficulty": "medium", "xp_value": 25 },
+            { "order": 2, "title": "Post on LinkedIn: 'I'm open to new opportunities' — share your LiveDocs project, what you're looking for", "difficulty": "medium", "xp_value": 25 },
+            { "order": 3, "title": "Message 10 engineers you admire on LinkedIn — not asking for jobs, asking for a 15-minute coffee chat", "difficulty": "hard", "xp_value": 50 },
+            { "order": 4, "title": "Join 2 technical Slack communities where engineers post jobs: Sheroes, HasGeek, etc.", "difficulty": "easy", "xp_value": 10 },
+            { "order": 5, "title": "Set up job alerts on LinkedIn, Naukri, and AngelList for 'Senior Full Stack', 'Next.js', 'Real-time'", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "What is your 'unique value proposition' as a candidate in 2 sentences? What makes you different from other SDE-2s?" }
+          ]
+        },
+        {
+          "day_number": 59,
+          "title": "Final LeetCode Blitz + Company-Specific Prep",
+          "difficulty": "hard",
+          "xp_reward": 200,
+          "hours_target": 8,
+          "topics": ["LeetCode", "Company Research", "Interview Prep"],
+          "tasks": [
+            { "order": 1, "title": "LeetCode Premium: filter by Razorpay questions — solve 5 most frequent", "difficulty": "hard", "xp_value": 50 },
+            { "order": 2, "title": "LeetCode Premium: filter by Meesho/Swiggy questions — solve 5 most frequent", "difficulty": "hard", "xp_value": 50 },
+            { "order": 3, "title": "Research engineering blogs: Razorpay Engineering, PhonePe Tech, Swiggy Tech — understand their scale challenges", "difficulty": "medium", "xp_value": 25 },
+            { "order": 4, "title": "Prepare 3 tailored system design answers for fintech (Razorpay/PhonePe): payment processing, fraud detection, reconciliation", "difficulty": "hard", "xp_value": 50 },
+            { "order": 5, "title": "Final mock: do 1 complete interview simulation (45 min coding + 45 min system design + 15 min behavioral)", "difficulty": "hard", "xp_value": 50 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "For Razorpay: what are the unique system design challenges in a payment gateway that you'd discuss?" },
+            { "order": 2, "question": "What are the top 3 LeetCode patterns you see most often in Indian product company interviews?" }
+          ]
+        },
+        {
+          "day_number": 60,
+          "title": "DAY 60 — The Arrival: Reflection, Final Blog, Keep the Momentum",
+          "difficulty": "medium",
+          "xp_reward": 500,
+          "hours_target": 8,
+          "topics": ["Reflection", "Writing", "Planning"],
+          "tasks": [
+            { "order": 1, "title": "Write your final capstone blog post: '60 Days from Jobless to Beast — Everything I Learned'", "difficulty": "boss", "xp_value": 100 },
+            { "order": 2, "title": "Count your LeetCode solved: target was 100+. Document the final number.", "difficulty": "easy", "xp_value": 10 },
+            { "order": 3, "title": "Review LiveDocs: add the final GitHub star count and demo link views to your resume metrics", "difficulty": "easy", "xp_value": 10 },
+            { "order": 4, "title": "Plan Days 61-90: maintain the momentum with 4 hours/day minimum — interviews + new project", "difficulty": "medium", "xp_value": 25 },
+            { "order": 5, "title": "Share the full 60-day journey thread on LinkedIn and Twitter — this is your proof of work", "difficulty": "medium", "xp_value": 25 },
+            { "order": 6, "title": "Send a personal message to 5 people who inspired you during this journey — build real relationships", "difficulty": "easy", "xp_value": 10 }
+          ],
+          "knowledge_checks": [
+            { "order": 1, "question": "Where were you on Day 1 vs Day 60? What is the single most important thing you learned?" },
+            { "order": 2, "question": "What would you tell someone starting this exact roadmap? What would you do differently?" },
+            { "order": 3, "question": "What's your plan if you get an offer below your target? What's your plan if you don't get any offers in the next 30 days?" }
+          ]
+        }
+      ]
+    }
+  ]
+}

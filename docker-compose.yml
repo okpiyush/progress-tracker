@@ -1,0 +1,63 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME:-livejourney}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-postgres} -d $${POSTGRES_DB:-livejourney}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:alpine
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - redis_data:/data
+
+  backend:
+    build: ./backend
+    volumes:
+      - ./livejourney_seed_data.json:/app/livejourney_seed_data.json:ro
+    environment:
+      - DB_HOST=${DB_HOST:-db}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - DB_NAME=${DB_NAME:-livejourney}
+      - DB_PORT=${DB_PORT:-5432}
+      - DEBUG=${DEBUG:-True}
+      - INITIAL_USERNAME=${INITIAL_USERNAME:-piyush}
+      - INITIAL_PASSWORD=${INITIAL_PASSWORD:-password}
+      - INITIAL_DISPLAY_NAME=${INITIAL_DISPLAY_NAME:-Piyush Kumar}
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_INITIAL_USERNAME=${INITIAL_USERNAME:-piyush}
+        - VITE_INITIAL_PASSWORD=${INITIAL_PASSWORD:-password}
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:
