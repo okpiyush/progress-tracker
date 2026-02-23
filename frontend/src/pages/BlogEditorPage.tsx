@@ -20,6 +20,7 @@ const BlogEditorPage: React.FC = () => {
         tags: [],
         github_url: '',
         external_links: [],
+        learning_materials_html: '',
         day: dayId ? parseInt(dayId) : null
     });
 
@@ -80,6 +81,7 @@ const BlogEditorPage: React.FC = () => {
                     tags: ['engineering', `day${dayData.day_number}`],
                     github_url: '',
                     external_links: [],
+                    learning_materials_html: '',
                     day: parseInt(dayId),
                     slug: dayData.blog_slug || null
                 });
@@ -94,6 +96,7 @@ const BlogEditorPage: React.FC = () => {
                 tags: [],
                 github_url: '',
                 external_links: [],
+                learning_materials_html: '',
                 day: null
             });
         }
@@ -113,6 +116,7 @@ const BlogEditorPage: React.FC = () => {
                 tags: currentEntry.tags,
                 github_url: currentEntry.github_url,
                 external_links: currentEntry.external_links,
+                learning_materials_html: currentEntry.learning_materials_html,
                 day: currentEntry.day
             };
 
@@ -141,7 +145,7 @@ const BlogEditorPage: React.FC = () => {
         return () => {
             if (debounceTimer.current) clearTimeout(debounceTimer.current);
         };
-    }, [entry.content, entry.title, entry.mood, entry.tags, entry.github_url, entry.external_links, saveDraft]);
+    }, [entry.content, entry.title, entry.mood, entry.tags, entry.github_url, entry.external_links, entry.learning_materials_html, saveDraft]);
 
     const publishEntry = async () => {
         setIsSaving(true);
@@ -153,6 +157,7 @@ const BlogEditorPage: React.FC = () => {
                 tags: entry.tags,
                 github_url: entry.github_url,
                 external_links: entry.external_links,
+                learning_materials_html: entry.learning_materials_html,
                 day: entry.day
             };
 
@@ -354,6 +359,16 @@ const BlogEditorPage: React.FC = () => {
                                             + Inject Resource
                                         </button>
                                     </div>
+                                </div>
+
+                                <div className="space-y-4 pt-2">
+                                    <label className="text-[9px] font-black text-text-muted uppercase tracking-[0.2em] px-1 opacity-60">Learning HTML Content</label>
+                                    <textarea
+                                        value={entry.learning_materials_html || ''}
+                                        onChange={e => setEntry({ ...entry, learning_materials_html: e.target.value })}
+                                        className="w-full bg-white/[0.03] border-white/5 focus:border-accent-green/30 rounded-2xl text-[11px] font-medium transition-all p-4 outline-none resize-y min-h-[100px] placeholder:text-text-muted/20 text-white"
+                                        placeholder="<div><h1>Today's Learnings</h1>...</div>"
+                                    />
                                 </div>
                             </div>
                         </div>

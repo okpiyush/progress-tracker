@@ -89,4 +89,5 @@ export interface BlogEntry {
     day?: number | null;
     github_url?: string;
     external_links?: ExternalLink[];
+    learning_materials_html?: string | null;
 }

@@ -13,6 +13,7 @@ class BlogEntry(models.Model):
     slug = models.SlugField(unique=True, blank=True, max_length=500)
     content = models.TextField()
     content_html = models.TextField(blank=True)
+    learning_materials_html = models.TextField(blank=True, null=True, help_text="HTML content for learning materials")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
     mood = models.CharField(max_length=50, blank=True)
     hours_worked = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)

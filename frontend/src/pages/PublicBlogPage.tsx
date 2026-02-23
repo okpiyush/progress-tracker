@@ -10,11 +10,12 @@ interface ExtendedBlogEntry extends BlogEntry {
     };
 }
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const PublicBlogPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const [entry, setEntry] = useState<ExtendedBlogEntry | null>(null);
+    const [showLearning, setShowLearning] = useState(false);
 
     useEffect(() => {
         api.get(`/blog/entries/${slug}/`).then(res => {
@@ -106,6 +107,19 @@ const PublicBlogPage: React.FC = () => {
                         />
                     </motion.div>
 
+                    {/* Learning Section Prompt */}
+                    {entry.learning_materials_html && (
+                        <div className="pt-16 space-y-8">
+                            <button
+                                onClick={() => setShowLearning(true)}
+                                className="bg-accent-purple/10 text-accent-purple border border-accent-purple/20 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-accent-purple/20 hover:shadow-glow-purple/20 transition-all flex items-center gap-4 group/learn"
+                            >
+                                <span>Launch Interactive Learning Module</span>
+                                <span className="text-lg group-hover/learn:scale-110 transition-transform">📚</span>
+                            </button>
+                        </div>
+                    )}
+
                     {/* Assets */}
                     {(entry.github_url || (entry.external_links && entry.external_links.length > 0)) && (
                         <motion.div
@@ -156,6 +170,48 @@ const PublicBlogPage: React.FC = () => {
                     <p className="text-[9px] font-black text-text-muted uppercase tracking-[0.5em] opacity-20">LiveJourney Protocol Hub // 2026</p>
                 </footer>
             </div>
+
+            {/* Full-Screen Interactive Learning Module Modal */}
+            <AnimatePresence>
+                {showLearning && entry?.learning_materials_html && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 30, scale: 0.98 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        className="fixed inset-0 z-[100] bg-surface-primary flex flex-col overflow-hidden shadow-2xl"
+                    >
+                        {/* Header Bar */}
+                        <div className="h-16 border-b border-white/10 bg-surface-primary/80 backdrop-blur-md flex items-center justify-between px-6 shrink-0 z-10 w-full relative">
+                            <div className="flex items-center gap-4">
+                                <div className="w-8 h-8 rounded-lg bg-accent-purple/20 flex items-center justify-center text-accent-purple shadow-glow-purple/20">📚</div>
+                                <span className="text-[10px] md:text-sm font-black text-white uppercase tracking-widest">Interactive Learning Module</span>
+                                <span className="hidden md:inline-block px-2 py-0.5 bg-accent-blue/10 text-accent-blue text-[9px] rounded-md font-black uppercase tracking-widest ml-4 border border-accent-blue/20">LiveJourney Protocol</span>
+                            </div>
+                            <button
+                                onClick={() => setShowLearning(false)}
+                                className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-accent-red/20 hover:text-accent-red flex items-center justify-center text-text-muted transition-all text-[10px] uppercase font-black tracking-widest border border-white/5 hover:border-accent-red/30"
+                            >
+                                Close Module ✕
+                            </button>
+                        </div>
+
+                        {/* Iframe Content Engine */}
+                        <div className="flex-1 w-full bg-black relative">
+                            <div className="absolute inset-0 z-0 flex flex-col items-center justify-center pointer-events-none opacity-40">
+                                <div className="w-12 h-12 border-2 border-accent-purple border-t-transparent rounded-2xl animate-spin mb-6"></div>
+                                <p className="text-[10px] font-black text-accent-purple uppercase tracking-[0.3em] animate-pulse">Initializing Protocol</p>
+                            </div>
+                            <iframe
+                                srcDoc={entry.learning_materials_html}
+                                className="w-full h-full border-none relative z-10"
+                                sandbox="allow-scripts allow-same-origin allow-popups"
+                                title="Learning Module"
+                            />
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
