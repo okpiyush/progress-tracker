@@ -1,4 +1,7 @@
+import json
+import os
 from datetime import date, timedelta
+from django.conf import settings
 
 XP_PER_LEVEL = [0, 500, 1200, 2200, 3500, 5000, 7000, 9500, 12500, 16000, 20000]
 
@@ -40,7 +43,6 @@ def award_xp(user, xp_amount):
 
 def update_streak(user):
     from apps.accounts.models import Profile
-    from apps.journey.models import Day
     profile = Profile.objects.get(user=user)
     today = date.today()
     yesterday = today - timedelta(days=1)
@@ -54,3 +56,54 @@ def update_streak(user):
     if profile.current_streak > profile.longest_streak:
         profile.longest_streak = profile.current_streak
     profile.save()
+
+def initialize_user_journey(user):
+    from apps.journey.models import Week, Day, Task, KnowledgeCheck
+    seed_path = os.path.join(settings.BASE_DIR, 'livejourney_seed_data.json')
+    
+    if not os.path.exists(seed_path):
+        return
+
+    with open(seed_path) as f:
+        data = json.load(f)
+
+    start_date = date.today()
+    
+    # Check if already seeded
+    if Week.objects.filter(user=user).exists():
+        return
+
+    for week_data in data['weeks']:
+        week = Week.objects.create(
+            user=user,
+            week_number=week_data['week_number'],
+            title=week_data['title'],
+            theme=week_data.get('theme', ''),
+            color_accent=week_data.get('color_accent', '#00FF88'),
+        )
+        for day_data in week_data.get('days', []):
+            day_date = start_date + timedelta(days=day_data['day_number'] - 1)
+            day = Day.objects.create(
+                user=user,
+                week=week,
+                day_number=day_data['day_number'],
+                date=day_date,
+                title=day_data['title'],
+                xp_reward=day_data['xp_reward'],
+                status='active' if day_data['day_number'] == 1 else 'upcoming',
+            )
+            for task_data in day_data.get('tasks', []):
+                Task.objects.create(
+                    day=day, 
+                    title=task_data['title'],
+                    difficulty=task_data.get('difficulty', 'medium'),
+                    xp_value=task_data.get('xp_value', 25),
+                    order=task_data.get('order', 0)
+                )
+            for kc_data in day_data.get('knowledge_checks', []):
+                KnowledgeCheck.objects.create(
+                    day=day, 
+                    question=kc_data['question'],
+                    order=kc_data.get('order', 0)
+                )
+

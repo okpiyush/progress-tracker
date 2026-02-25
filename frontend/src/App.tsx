@@ -4,7 +4,9 @@ import { useAuthStore } from './store/authStore';
 
 // Mock imports for pages
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
+
 import JourneyPage from './pages/JourneyPage';
 import DayDetailPage from './pages/DayDetailPage';
 import BlogListPage from './pages/BlogListPage';
@@ -30,6 +32,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
 
         <Route path="/dashboard" element={
           <PrivateRoute><DashboardPage /></PrivateRoute>

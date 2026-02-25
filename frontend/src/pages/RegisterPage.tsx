@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-
 import api from '../api/axios';
-import { useAuthStore } from '../store/authStore';
 import { motion } from 'framer-motion';
 
-const LoginPage: React.FC = () => {
-    const [username, setUsername] = useState(import.meta.env.VITE_INITIAL_USERNAME || '');
-    const [password, setPassword] = useState(import.meta.env.VITE_INITIAL_PASSWORD || '');
+const RegisterPage: React.FC = () => {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [displayName, setDisplayName] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const login = useAuthStore(state => state.login);
     const navigate = useNavigate();
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError('');
         try {
-            const { data } = await api.post('/auth/login/', { username, password });
-            login(data.access, data.refresh);
-            navigate('/dashboard');
-        } catch {
-            setError('Invalid username or password');
+            await api.post('/auth/register/', {
+                username,
+                email,
+                password,
+                display_name: displayName
+            });
+            navigate('/login', { state: { message: 'Registration successful! Please login.' } });
+        } catch (err: any) {
+            setError(err.response?.data?.username?.[0] || err.response?.data?.email?.[0] || 'Registration failed. Please check your details.');
             setIsLoading(false);
         }
     };
@@ -45,17 +48,17 @@ const LoginPage: React.FC = () => {
                     transition={{ duration: 0.8, ease: 'easeOut' }}
                     className="relative z-10 max-w-xl"
                 >
-                    <div className="w-16 h-16 bg-accent-blue/10 rounded-2xl flex items-center justify-center border border-accent-blue/20 mb-10 shadow-glow-blue/20">
-                        <span className="text-3xl">⚡</span>
+                    <div className="w-16 h-16 bg-accent-purple/10 rounded-2xl flex items-center justify-center border border-accent-purple/20 mb-10 shadow-glow-purple/20">
+                        <span className="text-3xl">🚀</span>
                     </div>
 
                     <h1 className="text-8xl font-black text-white mb-8 tracking-tightest leading-[0.9]">
-                        Design your <br />
-                        <span className="text-gradient-blue">Greatness.</span>
+                        Join the <br />
+                        <span className="text-gradient-purple">Vanguard.</span>
                     </h1>
 
                     <p className="text-xl text-text-secondary leading-relaxed font-medium mb-12 max-w-md">
-                        The elite 60-day challenge to architect your discipline, habits, and unstoppable growth.
+                        Start your journey today. Architect your future with the ultimate progress tracking protocol.
                     </p>
 
                     <div className="flex gap-12">
@@ -65,20 +68,14 @@ const LoginPage: React.FC = () => {
                         </div>
                         <div className="w-[1px] h-12 bg-white/10 self-center"></div>
                         <div className="space-y-1">
-                            <p className="text-4xl font-black text-white">100%</p>
-                            <p className="text-[10px] text-text-muted uppercase font-black tracking-[0.3em]">Consistency</p>
+                            <p className="text-4xl font-black text-white">New</p>
+                            <p className="text-[10px] text-text-muted uppercase font-black tracking-[0.3em]">Identity</p>
                         </div>
                     </div>
                 </motion.div>
-
-                {/* Decorative Elements */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex items-center justify-center opacity-20">
-                    <div className="w-[150%] h-[150%] border-[1px] border-white/5 rounded-full animate-pulse-soft"></div>
-                    <div className="absolute w-[180%] h-[180%] border-[1px] border-white/5 rounded-full animate-pulse-soft delay-700"></div>
-                </div>
             </div>
 
-            {/* Right Side - Login Form */}
+            {/* Right Side - Register Form */}
             <div className="w-full lg:w-5/12 flex items-center justify-center p-8 md:p-16 relative z-20">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -88,20 +85,20 @@ const LoginPage: React.FC = () => {
                 >
                     <div className="card p-10 bg-white/[0.02] border-white/5 backdrop-blur-3xl shadow-2xl relative overflow-hidden group">
                         {/* Card Glow */}
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent-blue/10 blur-3xl -mr-16 -mt-16 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent-purple/10 blur-3xl -mr-16 -mt-16 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
                         <div className="mb-12 relative z-10">
-                            <h2 className="text-4xl font-black text-white mb-3 tracking-tight">Access Hub</h2>
-                            <p className="text-text-secondary font-medium italic">Authenticate to continue your evolution.</p>
+                            <h2 className="text-4xl font-black text-white mb-3 tracking-tight">Initiate Protocol</h2>
+                            <p className="text-text-secondary font-medium italic">Create your operative profile.</p>
                         </div>
 
-                        <form onSubmit={handleLogin} className="space-y-8 relative z-10">
+                        <form onSubmit={handleRegister} className="space-y-6 relative z-10">
                             <div className="space-y-2.5">
-                                <label className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] px-1 opacity-70">User Identifier</label>
+                                <label className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] px-1 opacity-70">Codename (Username)</label>
                                 <input
                                     type="text"
-                                    className="input block w-full bg-white/[0.03] border-white/10 hover:border-accent-blue/30 focus:bg-white/[0.05] shadow-inner font-semibold py-3.5"
-                                    placeholder="your_username"
+                                    className="input block w-full bg-white/[0.03] border-white/10 hover:border-accent-purple/30 focus:bg-white/[0.05] shadow-inner font-semibold py-3.5"
+                                    placeholder="operative_01"
                                     value={username}
                                     onChange={e => setUsername(e.target.value)}
                                     required
@@ -109,12 +106,34 @@ const LoginPage: React.FC = () => {
                             </div>
 
                             <div className="space-y-2.5">
-                                <div className="flex justify-between items-center px-1">
-                                    <label className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] opacity-70">Security Protocol</label>
-                                </div>
+                                <label className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] px-1 opacity-70">Display Name</label>
+                                <input
+                                    type="text"
+                                    className="input block w-full bg-white/[0.03] border-white/10 hover:border-accent-purple/30 focus:bg-white/[0.05] shadow-inner font-semibold py-3.5"
+                                    placeholder="John Doe"
+                                    value={displayName}
+                                    onChange={e => setDisplayName(e.target.value)}
+                                    required
+                                />
+                            </div>
+
+                            <div className="space-y-2.5">
+                                <label className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] px-1 opacity-70">Comm Frequency (Email)</label>
+                                <input
+                                    type="email"
+                                    className="input block w-full bg-white/[0.03] border-white/10 hover:border-accent-purple/30 focus:bg-white/[0.05] shadow-inner font-semibold py-3.5"
+                                    placeholder="agent@example.com"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+
+                            <div className="space-y-2.5">
+                                <label className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] px-1 opacity-70">Security Protocol (Password)</label>
                                 <input
                                     type="password"
-                                    className="input block w-full bg-white/[0.03] border-white/10 hover:border-accent-blue/30 focus:bg-white/[0.05] shadow-inner font-semibold py-3.5"
+                                    className="input block w-full bg-white/[0.03] border-white/10 hover:border-accent-purple/30 focus:bg-white/[0.05] shadow-inner font-semibold py-3.5"
                                     placeholder="••••••••"
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
@@ -135,26 +154,25 @@ const LoginPage: React.FC = () => {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="btn w-full bg-accent-blue hover:bg-blue-600 text-white font-black uppercase text-xs tracking-[0.2em] py-4 shadow-glow-blue transition-all disabled:opacity-50"
+                                className="btn w-full bg-accent-purple hover:bg-purple-600 text-white font-black uppercase text-xs tracking-[0.2em] py-4 shadow-glow-purple transition-all disabled:opacity-50"
                             >
                                 {isLoading ? (
                                     <div className="flex items-center justify-center gap-3">
                                         <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                                        Decrypting...
+                                        Initializing...
                                     </div>
                                 ) : (
-                                    'Establish Connection'
+                                    'Register Operative'
                                 )}
                             </button>
+
+                            <div className="text-center mt-6">
+                                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">
+                                    Already an operative? <Link to="/login" className="text-accent-purple hover:underline ml-2">Establish Connection</Link>
+                                </p>
+                            </div>
                         </form>
-
-                        <div className="text-center mt-6">
-                            <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">
-                                New Operative? <Link to="/register" className="text-accent-blue hover:underline ml-2">Initiate Protocol</Link>
-                            </p>
-                        </div>
                     </div>
-
 
                     <div className="mt-12 flex flex-col items-center gap-6 opacity-30">
                         <div className="h-[1px] w-20 bg-white/20"></div>
@@ -168,4 +186,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default RegisterPage;
